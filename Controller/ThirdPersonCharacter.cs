@@ -58,14 +58,19 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			ApplyExtraTurnRotation();
 
+            if(move.magnitude > 0.01f)
+            {
+                transform.position += transform.forward * 0.05f;
+            }
+
 			// control and velocity handling is different when grounded and airborne:
 			if (m_IsGrounded)
 			{
 				HandleGroundedMovement(crouch, jump);
-			}
+            }
 			else
 			{
-				HandleAirborneMovement();
+                HandleAirborneMovement();
 			}
 
 			ScaleCapsuleForCrouching(crouch);
@@ -77,7 +82,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-            
+
         }
 
 
@@ -191,15 +196,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void OnAnimatorMove()
 		{
-            // we implement this function to override the default root motion.
-            // this allows us to modify the positional speed before it's applied.
-            if (m_IsGrounded && Time.deltaTime > 0)
-            {
-                Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
-                // we preserve the existing y part of the current velocity.
-                v.y = m_Rigidbody.velocity.y;
-                m_Rigidbody.velocity = v;
-            }
+            //// we implement this function to override the default root motion.
+            //// this allows us to modify the positional speed before it's applied.
+            //if (m_IsGrounded && Time.deltaTime > 0)
+            //{
+            //    Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
+            //    // we preserve the existing y part of the current velocity.
+            //    v.y = m_Rigidbody.velocity.y;
+            //    m_Rigidbody.velocity = v;
+            //}
         }
 
 
